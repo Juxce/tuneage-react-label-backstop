@@ -4,33 +4,31 @@ import { Container, Row, Col } from 'reactstrap';
 class Approvals extends React.Component {
     render() {
         return (
-            <Container className="tit">
+            <Container className="approvals-container">
                 <Row>
                     <Col>
                         <table className="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Short Name</th>
                                     <th>Long Name</th>
-                                    <th>Website</th>
+                                    <th>Url</th>
                                     <th>Profile</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {this.props.approvals && this.props.approvals.map(label => {
-                                    return <tr key={label.shortName} onClick={() => this.props.handleChange({
-                                        id: label.shortName,
+                                    return <tr key={label.rowKey} onClick={() => this.props.handleChange({
+                                        rowKey: label.rowKey,
                                         shortName: label.shortName,
                                         longName: label.longName,
                                         url: label.url,
                                         profile: label.profile
                                     })}>
                                         <td>{label.shortName}</td>
-                                        <td>{label.shortName}</td>
                                         <td>{label.longName}</td>
-                                        <td>{label.url}</td>
-                                        <td>{label.profile}</td>
+                                        <td>{label.url === null ? '' : label.url.substring(0, 19)}</td>
+                                        <td>{label.profile === null ? '' : label.profile.substring(0, 30)}</td>
                                     </tr>
                                 })}
                             </tbody>
@@ -50,7 +48,7 @@ export default class LabelBackstop extends React.Component {
             shortName: '',
             longName: '',
             url: '',
-            id: '',
+            rowKey: '',
             profile: ''
         };
 
@@ -149,7 +147,7 @@ export default class LabelBackstop extends React.Component {
     refreshApprovedList() {
         // get all entities - GET
         fetch(this.labelApprovalsUrl, {
-            // "method": "GET",
+            "method": "GET"
             // "headers": {
             //     "x-rapidapi-key": "35f1a08d2fmsh66d83831b1862f9p109684jsna71723599f77",
             //     "x-rapidapi-host": "fairestdb.p.rapidapi.com"
@@ -170,29 +168,33 @@ export default class LabelBackstop extends React.Component {
         return (
             <Container>
                 <Row className="justify-content-center">
-                    <Col className="col-md-8">
-                        <h1 className="display-4 text-center">Record Label Drop Spot</h1>
+                    <Col className="col-md-6">
+                        <h1 className="display-1 text-center">Record Label Drop Spot</h1>
                         <form className="d-flex flex-column">
-                            <legend className="text-center">Submit a record label or music company</legend>
+                            <legend className="welcome-text">Do you have a record label or music company?
+                                We would like to know about it! Please tell us all about it so we can
+                                get you in the mix with all the big dogs!</legend>
                             <label htmlFor="shortName">
-                                Short Name
+                                Word or phrase that uniquely identifies the company
+                                <span className="example-text">&nbsp;(example: Blue Note)</span>
                                 <input
                                     name="shortName"
                                     id="shortName"
                                     type="text"
-                                    className="form-control"
+                                    className="form-control-single-value"
                                     value={this.state.shortName}
                                     onChange={(e) => this.handleChange({ shortName: e.target.value })}
                                     required
                                 />
                             </label>
                             <label htmlFor="longName">
-                                Long Name
+                                Full label or company name
+                                <span className="example-text">&nbsp;(example: Blue Note Records)</span>
                                 <input
                                     name="longName"
                                     id="longName"
                                     type="text"
-                                    className="form-control"
+                                    className="form-control-single-value"
                                     value={this.state.longName}
                                     onChange={(e) => this.handleChange({ longName: e.target.value })}
                                     required
@@ -204,7 +206,7 @@ export default class LabelBackstop extends React.Component {
                                     name="url"
                                     id="url"
                                     type="text"
-                                    className="form-control"
+                                    className="form-control-single-value"
                                     value={(this.state.url === undefined) ? "" : this.state.url}
                                     onChange={(e) => this.handleChange({ url: e.target.value })}
                                     required
@@ -212,38 +214,49 @@ export default class LabelBackstop extends React.Component {
                             </label>
                             <label htmlFor="profile">
                                 Profile
-                                <input
+                                <textarea
                                     name="profile"
                                     id="profile"
-                                    type="text"
-                                    className="form-control"
+                                    rows="6"
+                                    maxLength="10000"
+                                    className="form-control-multi-line"
                                     value={(this.state.profile === undefined) ? "" : this.state.profile}
                                     onChange={(e) => this.handleChange({ profile: e.target.value })}
                                     required
                                 />
                             </label>
-                            <label htmlFor="id">
-                                Friend ID:
+                            <label htmlFor="rowKey" className="rowKeyExposé">
+                                Row Key:
                                 <input
-                                    name="id"
-                                    id="id"
+                                    name="rowKey"
+                                    id="rowKey"
                                     type="text"
-                                    className="form-control"
-                                    value={this.state.id}
-                                    onChange={(e) => this.handleChange({ id: e.target.value })}
+                                    className="form-control-single-value disabled"
+                                    value={this.state.rowKey}
+                                    onChange={(e) => this.handleChange({ rowKey: e.target.value })}
                                     readOnly
                                 />
                             </label>
-                            <button className="btn btn-primary" type='button' onClick={(e) => this.create(e)}>
-                                Add
-                            </button>
-                            <button className="btn btn-info" type='button' onClick={(e) => this.update(e)}>
-                                Update
-                            </button>
-                            <button className="btn btn-danger" type='button' onClick={(e) => this.delete(e)}>
-                                Delete
-                            </button>
                         </form>
+                        <Container className="three-button-row">
+                            <Row>
+                                <Col className="col-md-4">
+                                    <button className="btn btn-primary" type='button' onClick={(e) => this.create(e)}>
+                                        Add
+                                    </button>
+                                </Col>
+                                <Col className="col-md-4">
+                                    <button className="btn btn-info" type='button' onClick={(e) => this.update(e)}>
+                                        Update
+                                    </button>
+                                </Col>
+                                <Col className="col-md-4">
+                                    <button className="btn btn-danger" type='button' onClick={(e) => this.delete(e)}>
+                                        Delete
+                                    </button>
+                                </Col>
+                            </Row>
+                        </Container>
                         <Approvals approvals={this.state.approvals} handleChange={this.handleChange} />
                     </Col>
                 </Row>

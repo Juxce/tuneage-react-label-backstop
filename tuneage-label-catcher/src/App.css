@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  text-align: start;
 }
 
 .App-logo {
@@ -9,7 +9,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 22s linear;
+    animation: App-logo-spin infinite 10s linear;
   }
 }
 
@@ -20,12 +20,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(2px + 2vmin);
+  font-size: calc(1.2px + 2vmin);
+  line-height: normal;
   color: white;
 }
 
 .App-link {
-  color: #61dafb;
+  color: #0e69f1;
 }
 
 @keyframes App-logo-spin {
@@ -37,8 +38,79 @@
   }
 }
 
+/* Juxce! */
 
-.tit {
+.display-1 { /* adding to a Reactstrap class */
+    margin-bottom: 40px;
+}
+
+.welcome-text {
+    margin-bottom: 40px;
+}
+
+.form-control-single-value {
+    display: block;
+    width: 75%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: black;
+    background-color: white;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    margin-top: 5px;
+    margin-bottom: 12px;
+}
+
+.form-control-multi-line {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: black;
+    background-color: white;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    margin-top: 5px;
+    margin-bottom: 12px;
+    resize: none;
+}
+
+.disabled {
+    background-color: gray;
+    color:rgb(86, 192, 157)
+}
+
+.example-text {
+  font-size: calc(1.2px + 1.3vmin);
+}
+
+.rowKeyExposé {
+    display: block;
+}
+
+.three-button-row {
+    margin-top: 10px;
+    margin-bottom: 22px;
+}
+
+.btn { /* adding to a Reactstrap class */
+    width: 100%;
+}
+
+.approvals-container {
     background-color: lightskyblue;
     font-size: 12px;
+    margin-bottom: 40px;
 }
