@@ -1,4 +1,4 @@
-import logo from './assets/juxcedrip.gif';
+import logo from './assets/juxcespinner100.gif';
 import './App.css';
 import LabelBackstop from './components/LabelBackstop.js';
 

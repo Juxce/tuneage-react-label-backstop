@@ -5,6 +5,7 @@ class Approvals extends React.Component {
     render() {
         return (
             <Container className="approvals-container">
+                <p>Here are some examples from our database</p>
                 <Row>
                     <Col>
                         <table className="table table-striped table-bordered">
@@ -57,7 +58,7 @@ export default class LabelBackstop extends React.Component {
         this.delete = this.delete.bind(this);
         this.handleChange = this.handleChange.bind(this);
 
-        this.labelApprovalsUrl = "http://localhost:7071/api/LabelApprovals_GetAllDocuments";
+        this.getLabelApprovalsUrl = process.env.REACT_APP_URL_GET_LABEL_APPROVALS;
     }
 
     componentDidMount() {
@@ -146,7 +147,7 @@ export default class LabelBackstop extends React.Component {
 
     refreshApprovedList() {
         // get all entities - GET
-        fetch(this.labelApprovalsUrl, {
+        fetch(this.getLabelApprovalsUrl, {
             "method": "GET"
             // "headers": {
             //     "x-rapidapi-key": "35f1a08d2fmsh66d83831b1862f9p109684jsna71723599f77",
