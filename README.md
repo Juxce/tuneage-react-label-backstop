@@ -1,2 +1,2 @@
-# tuneage-react
-React JavaScript SPAs for the Juxce Tuneage project
+# tuneage-react-label-backstop
+Music label data sourcing React SPA for the Juxce Tuneage project.
