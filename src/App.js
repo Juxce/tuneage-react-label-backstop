@@ -6,10 +6,8 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
-                <p />
                 <img src={logo} className="App-logo" alt="logo" />
-                <p />
-                <p />
+                <h1 className="display-1">Record Label Backstop</h1>
                 <LabelBackstop />
             </header>
         </div>

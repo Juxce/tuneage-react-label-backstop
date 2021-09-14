@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'reactstrap';
 class Approvals extends React.Component {
     render() {
         return (
-            <Container className="approvals-container">
+            <Container className="approvalsContainer">
                 <p>Here are some examples from our database</p>
                 <Row>
                     <Col>
@@ -46,19 +46,21 @@ export default class LabelBackstop extends React.Component {
         super(props);
         this.state = {
             approvals: [],
+            rowKey: '',
             shortName: '',
             longName: '',
             url: '',
-            rowKey: '',
             profile: ''
         };
 
-        this.create = this.create.bind(this);
-        this.update = this.update.bind(this);
-        this.delete = this.delete.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.checkForSimilar = this.checkForSimilar.bind(this);
 
-        this.getLabelApprovalsUrl = process.env.REACT_APP_URL_GET_LABEL_APPROVALS;
+        this.urlGetLabelApprovals = process.env.REACT_APP_URL_GET_LABEL_APPROVALS;
+        this.urlCreate = process.env.REACT_APP_URL_CREATE;
+        this.urlUpdate = process.env.REACT_APP_URL_UPDATE_BASE;
+        this.urlDelete = process.env.REACT_APP_URL_DELETE_BASE;
+        this.urlCheckSimilar = process.env.REACT_APP_URL_CHECK_SIMILAR;
     }
 
     componentDidMount() {
@@ -69,76 +71,96 @@ export default class LabelBackstop extends React.Component {
         // add entity - POST
         e.preventDefault();
 
-        fetch("https://fairestdb.p.rapidapi.com/friend/friendThingy", {
+        fetch(this.urlCreate, {
             "method": "POST",
             "headers": {
                 "content-type": "application/json",
-                "x-rapidapi-key": "35f1a08d2fmsh66d83831b1862f9p109684jsna71723599f77",
-                "x-rapidapi-host": "fairestdb.p.rapidapi.com",
                 "accept": "application/json"
             },
             "body": JSON.stringify({
-                name: this.state.shortName,
-                notes: this.state.profile
+                shortName: this.state.shortName,
+                longName: this.state.longName,
+                url: this.state.url,
+                profile: this.state.profile
             })
         })
-            .then(response => response.json())
-            .then(response => {
-                console.log(response);
-                this.refreshApprovedList();
-            })
-            .catch(err => {
-                console.error(err);
-            });
+        .then(response => response.json())
+        .then(response => {
+            console.log(response);
+            // this.refreshApprovedList();
+        })
+        .catch(err => {
+            console.error(err);
+        });
     }
 
     update(e) {
         // update entity - PUT
         e.preventDefault();
 
-        fetch("https://fairestdb.p.rapidapi.com/friend/friendThingy", {
+        fetch(this.urlUpdate, {
             "method": "PUT",
             "headers": {
                 "content-type": "application/json",
-                "x-rapidapi-key": "35f1a08d2fmsh66d83831b1862f9p109684jsna71723599f77",
-                "x-rapidapi-host": "fairestdb.p.rapidapi.com",
                 "accept": "application/json"
             },
             "body": JSON.stringify({
-                _id: this.state.id,
-                name: this.state.shortName,
-                notes: this.state.profile
+                rowKey: this.state.rowKey,
+                shortName: this.state.shortName,
+                longName: this.state.longName,
+                url: this.state.url,
+                profile: this.state.profile
             })
         })
-            .then(response => response.json())
-            .then(response => {
-                console.log(response);
-                this.refreshApprovedList();
-            })
-            .catch(err => {
-                console.error(err);
-            });
+        .then(response => response.json())
+        .then(response => {
+            console.log(response);
+            // this.refreshApprovedList();
+        })
+        .catch(err => {
+            console.error(err);
+        });
     }
 
     delete(e) {
         // delete entity - DELETE
         e.preventDefault();
 
-        fetch(`https://fairestdb.p.rapidapi.com/friend/friendThingy/_id/${this.state.id}`, {
-            "method": "DELETE",
-            "headers": {
-                "x-rapidapi-key": "35f1a08d2fmsh66d83831b1862f9p109684jsna71723599f77",
-                "x-rapidapi-host": "fairestdb.p.rapidapi.com"
-            }
+        fetch(this.urlDelete, {
+            "method": "DELETE"
         })
-            .then(response => response.json())
-            .then(response => {
-                console.log(response);
-                this.refreshApprovedList();
+        .then(response => response.json())
+        .then(response => {
+            console.log(response);
+            // this.refreshApprovedList();
+        })
+        .catch(err => {
+            console.error(err);
+        });
+    }
+
+    checkForSimilar(e) {
+        // query for approved labels that begin with same shortName text - POST
+        e.preventDefault();
+
+        fetch(this.urlCheckSimilar, {
+            "method": "POST",
+            "headers": {
+                "content-type": "application/json"
+            },
+            "body": JSON.stringify({
+                shortName: this.state.shortName
             })
-            .catch(err => {
-                console.error(err);
+        })
+        .then(response => response.json())
+        .then(response => {
+            this.setState({
+                approvals: response
             });
+        })
+        .catch(err => {
+            console.error(err);
+        });
     }
 
     handleChange(changeObject) {
@@ -147,22 +169,18 @@ export default class LabelBackstop extends React.Component {
 
     refreshApprovedList() {
         // get all entities - GET
-        fetch(this.getLabelApprovalsUrl, {
+        fetch(this.urlGetLabelApprovals, {
             "method": "GET"
-            // "headers": {
-            //     "x-rapidapi-key": "35f1a08d2fmsh66d83831b1862f9p109684jsna71723599f77",
-            //     "x-rapidapi-host": "fairestdb.p.rapidapi.com"
-            // }
         })
-            .then(response => response.json())
-            .then(response => {
-                this.setState({
-                    approvals: response
-                })
-            })
-            .catch(err => {
-                console.error(err);
+        .then(response => response.json())
+        .then(response => {
+            this.setState({
+                approvals: response
             });
+        })
+        .catch(err => {
+            console.error(err);
+        });
     }
 
     render() {
@@ -170,19 +188,18 @@ export default class LabelBackstop extends React.Component {
             <Container>
                 <Row className="justify-content-center">
                     <Col className="col-md-6">
-                        <h1 className="display-1 text-center">Record Label Drop Spot</h1>
                         <form className="d-flex flex-column">
-                            <legend className="welcome-text">Do you have a record label or music company?
+                            <legend className="introParagraph">Do you have a record label or music company?
                                 We would like to know about it! Please tell us all about it so we can
                                 get you in the mix with all the big dogs!</legend>
                             <label htmlFor="shortName">
                                 Word or phrase that uniquely identifies the company
-                                <span className="example-text">&nbsp;(example: Blue Note)</span>
+                                <span className="subtext">&nbsp;(example: Blue Note)</span>
                                 <input
                                     name="shortName"
                                     id="shortName"
                                     type="text"
-                                    className="form-control-single-value"
+                                    className="formControlSingleValue"
                                     value={this.state.shortName}
                                     onChange={(e) => this.handleChange({ shortName: e.target.value })}
                                     required
@@ -190,12 +207,12 @@ export default class LabelBackstop extends React.Component {
                             </label>
                             <label htmlFor="longName">
                                 Full label or company name
-                                <span className="example-text">&nbsp;(example: Blue Note Records)</span>
+                                <span className="subtext">&nbsp;(example: Blue Note Records)</span>
                                 <input
                                     name="longName"
                                     id="longName"
                                     type="text"
-                                    className="form-control-single-value"
+                                    className="formControlSingleValue"
                                     value={this.state.longName}
                                     onChange={(e) => this.handleChange({ longName: e.target.value })}
                                     required
@@ -203,11 +220,12 @@ export default class LabelBackstop extends React.Component {
                             </label>
                             <label htmlFor="url">
                                 Website
+                                <span className="subtext">&nbsp;(optional)</span>
                                 <input
                                     name="url"
                                     id="url"
                                     type="text"
-                                    className="form-control-single-value"
+                                    className="formControlSingleValue"
                                     value={(this.state.url === undefined) ? "" : this.state.url}
                                     onChange={(e) => this.handleChange({ url: e.target.value })}
                                     required
@@ -218,9 +236,9 @@ export default class LabelBackstop extends React.Component {
                                 <textarea
                                     name="profile"
                                     id="profile"
-                                    rows="6"
+                                    rows="4"
                                     maxLength="10000"
-                                    className="form-control-multi-line"
+                                    className="formControlMultiLine"
                                     value={(this.state.profile === undefined) ? "" : this.state.profile}
                                     onChange={(e) => this.handleChange({ profile: e.target.value })}
                                     required
@@ -239,19 +257,19 @@ export default class LabelBackstop extends React.Component {
                                 />
                             </label>
                         </form>
-                        <Container className="three-button-row">
+                        <Container className="threeButtonRow">
                             <Row>
+                                <Col className="col-md-4">
+                                    <button className="btn btn-info" type='button' onClick={(e) => this.checkForSimilar(e)}>
+                                        Check
+                                    </button>
+                                </Col>
                                 <Col className="col-md-4">
                                     <button className="btn btn-primary" type='button' onClick={(e) => this.create(e)}>
                                         Add
                                     </button>
                                 </Col>
-                                <Col className="col-md-4">
-                                    <button className="btn btn-info" type='button' onClick={(e) => this.update(e)}>
-                                        Update
-                                    </button>
-                                </Col>
-                                <Col className="col-md-4">
+                                <Col className="col-md-4 deleteButtonExposé">
                                     <button className="btn btn-danger" type='button' onClick={(e) => this.delete(e)}>
                                         Delete
                                     </button>
