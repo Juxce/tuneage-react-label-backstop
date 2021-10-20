@@ -175,25 +175,6 @@ export default class LabelBackstop extends React.Component {
                             rowKey={this.state.rowKey}
                             handleChange={this.handleChange}
                         />
-                        <Container className="threeButtonRow">
-                            <Row>
-                                <Col className="col-md-4">
-                                    <button className="juxceButton infoButton" type='button' onClick={(e) => this.checkForSimilar(e)}>
-                                        Check
-                                    </button>
-                                </Col>
-                                <Col className="col-md-4">
-                                    <button className="juxceButton addButton" type='button' onClick={(e) => this.create(e)}>
-                                        Add
-                                    </button>
-                                </Col>
-                                <Col className="col-md-4 deleteButtonExposé">
-                                    <button className="juxceButton dangerButton" type='button' onClick={(e) => this.delete(e)}>
-                                        Delete
-                                    </button>
-                                </Col>
-                            </Row>
-                        </Container>
                         <ApprovalsViewer
                             approvals={this.state.approvals}
                             approvalsSubheader={this.state.approvalsSubheader}

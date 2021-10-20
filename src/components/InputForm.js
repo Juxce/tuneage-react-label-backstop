@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container, Row, Col } from 'reactstrap';
 
 export default class InputForm extends React.Component {
     render() {
@@ -72,6 +73,25 @@ export default class InputForm extends React.Component {
                         readOnly
                     />
                 </label>
+                <Container className="threeButtonRow">
+                    <Row>
+                        <Col className="col-md-4">
+                            <button className="juxceButton infoButton" type='button' onClick={(e) => this.checkForSimilar(e)}>
+                                Check
+                            </button>
+                        </Col>
+                        <Col className="col-md-4">
+                            <button className="juxceButton addButton" type='button' onClick={(e) => this.create(e)}>
+                                Add
+                            </button>
+                        </Col>
+                        <Col className="col-md-4 deleteButtonExposé">
+                            <button className="juxceButton dangerButton" type='button' onClick={(e) => this.delete(e)}>
+                                Delete
+                            </button>
+                        </Col>
+                    </Row>
+                </Container>
             </form>
         )
     }
