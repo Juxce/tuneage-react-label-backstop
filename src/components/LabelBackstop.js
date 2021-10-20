@@ -1,51 +1,14 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
-
-class Approvals extends React.Component {
-    render() {
-        return (
-            <Container className="approvalsContainer">
-                <p>Here are some examples from our database</p>
-                <Row>
-                    <Col>
-                        <table className="table table-striped table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Short Name</th>
-                                    <th>Long Name</th>
-                                    <th>Url</th>
-                                    <th>Profile</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.props.approvals && this.props.approvals.map(label => {
-                                    return <tr key={label.rowKey} onClick={() => this.props.handleChange({
-                                        rowKey: label.rowKey,
-                                        shortName: label.shortName,
-                                        longName: label.longName,
-                                        url: label.url,
-                                        profile: label.profile
-                                    })}>
-                                        <td>{label.shortName}</td>
-                                        <td>{label.longName}</td>
-                                        <td>{label.url === null ? '' : label.url.substring(0, 19)}</td>
-                                        <td>{label.profile === null ? '' : label.profile.substring(0, 30)}</td>
-                                    </tr>
-                                })}
-                            </tbody>
-                        </table>
-                    </Col>
-                </Row>
-            </Container>
-        );
-    }
-}
+import InputForm from './InputForm.js';
+import ApprovalsViewer from './ApprovalsViewer.js';
 
 export default class LabelBackstop extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             approvals: [],
+            approvalsSubheader: 'Here are some approved examples from our database',
             rowKey: '',
             shortName: '',
             longName: '',
@@ -87,7 +50,7 @@ export default class LabelBackstop extends React.Component {
         .then(response => response.json())
         .then(response => {
             console.log(response);
-            // this.refreshApprovedList();
+            this.handleSubmission(this.state.shortName);
         })
         .catch(err => {
             console.error(err);
@@ -154,6 +117,11 @@ export default class LabelBackstop extends React.Component {
         })
         .then(response => response.json())
         .then(response => {
+            if(response.length === 0) {
+                this.setState({
+                    approvalsSubheader: "We don't seem to have that one yet. Fire away!"
+                });
+            }
             this.setState({
                 approvals: response
             });
@@ -183,100 +151,54 @@ export default class LabelBackstop extends React.Component {
         });
     }
 
+    handleSubmission(shortName) {
+        this.setState({
+            approvalsSubheader: "Thank you! Your submission of " + shortName + " has been received!",
+            rowKey: '',
+            shortName: '',
+            longName: '',
+            url: '',
+            profile: ''
+        })
+    }
+
     render() {
         return (
             <Container>
                 <Row className="justify-content-center">
                     <Col className="col-md-6">
-                        <form className="d-flex flex-column">
-                            <legend className="introParagraph">Do you have a record label or music company?
-                                We would like to know about it! Please tell us all about it so we can
-                                get you in the mix with all the big dogs!</legend>
-                            <label htmlFor="shortName">
-                                Word or phrase that uniquely identifies the company
-                                <span className="subtext">&nbsp;(example: Blue Note)</span>
-                                <input
-                                    name="shortName"
-                                    id="shortName"
-                                    type="text"
-                                    className="formControlSingleValue"
-                                    value={this.state.shortName}
-                                    onChange={(e) => this.handleChange({ shortName: e.target.value })}
-                                    required
-                                />
-                            </label>
-                            <label htmlFor="longName">
-                                Full label or company name
-                                <span className="subtext">&nbsp;(example: Blue Note Records)</span>
-                                <input
-                                    name="longName"
-                                    id="longName"
-                                    type="text"
-                                    className="formControlSingleValue"
-                                    value={this.state.longName}
-                                    onChange={(e) => this.handleChange({ longName: e.target.value })}
-                                    required
-                                />
-                            </label>
-                            <label htmlFor="url">
-                                Website
-                                <span className="subtext">&nbsp;(optional)</span>
-                                <input
-                                    name="url"
-                                    id="url"
-                                    type="text"
-                                    className="formControlSingleValue"
-                                    value={(this.state.url === undefined) ? "" : this.state.url}
-                                    onChange={(e) => this.handleChange({ url: e.target.value })}
-                                    required
-                                />
-                            </label>
-                            <label htmlFor="profile">
-                                Profile
-                                <textarea
-                                    name="profile"
-                                    id="profile"
-                                    rows="4"
-                                    maxLength="10000"
-                                    className="formControlMultiLine"
-                                    value={(this.state.profile === undefined) ? "" : this.state.profile}
-                                    onChange={(e) => this.handleChange({ profile: e.target.value })}
-                                    required
-                                />
-                            </label>
-                            <label htmlFor="rowKey" className="rowKeyExposé">
-                                Row Key:
-                                <input
-                                    name="rowKey"
-                                    id="rowKey"
-                                    type="text"
-                                    className="form-control-single-value disabled"
-                                    value={this.state.rowKey}
-                                    onChange={(e) => this.handleChange({ rowKey: e.target.value })}
-                                    readOnly
-                                />
-                            </label>
-                        </form>
+                        <InputForm
+                            shortName={this.state.shortName}
+                            longName={this.state.longName}
+                            url={this.state.url}
+                            profile={this.state.profile}
+                            rowKey={this.state.rowKey}
+                            handleChange={this.handleChange}
+                        />
                         <Container className="threeButtonRow">
                             <Row>
                                 <Col className="col-md-4">
-                                    <button className="btn btn-info" type='button' onClick={(e) => this.checkForSimilar(e)}>
+                                    <button className="juxceButton infoButton" type='button' onClick={(e) => this.checkForSimilar(e)}>
                                         Check
                                     </button>
                                 </Col>
                                 <Col className="col-md-4">
-                                    <button className="btn btn-primary" type='button' onClick={(e) => this.create(e)}>
+                                    <button className="juxceButton addButton" type='button' onClick={(e) => this.create(e)}>
                                         Add
                                     </button>
                                 </Col>
                                 <Col className="col-md-4 deleteButtonExposé">
-                                    <button className="btn btn-danger" type='button' onClick={(e) => this.delete(e)}>
+                                    <button className="juxceButton dangerButton" type='button' onClick={(e) => this.delete(e)}>
                                         Delete
                                     </button>
                                 </Col>
                             </Row>
                         </Container>
-                        <Approvals approvals={this.state.approvals} handleChange={this.handleChange} />
+                        <ApprovalsViewer
+                            approvals={this.state.approvals}
+                            approvalsSubheader={this.state.approvalsSubheader}
+                            handleChange={this.handleChange}
+                        />
                     </Col>
                 </Row>
             </Container>

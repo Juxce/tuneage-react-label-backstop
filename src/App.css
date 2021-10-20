@@ -66,7 +66,8 @@
     -webkit-appearance: none;
     appearance: none;
     border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,
+                box-shadow .15s ease-in-out;
     margin-top: .25vh;
     margin-bottom: 1vh;
 }
@@ -85,7 +86,8 @@
     -webkit-appearance: none;
     appearance: none;
     border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,
+                box-shadow .15s ease-in-out;
     margin-top: .25vh;
     margin-bottom: 2vh;
     resize: none;
@@ -105,17 +107,61 @@
     margin-bottom: 3vh;
 }
 
-.btn { /* .btn is a Reactstrap class */
+.juxceButton {
     width: 100%;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    background-color: white;
+    border: 1px solid white;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,
+                background-color .15s ease-in-out,
+                border-color .15s ease-in-out,
+                box-shadow .15s ease-in-out;
+    -webkit-appearance: button;
+}
+
+.infoButton {
+    color: #212529;
+    background-color: lightskyblue;
+}
+
+.addButton {
+    color: white;
+    background-color: #0066cc;
+}
+
+.dangerButton {
+    color: white;
+    background-color: #ff3333;
 }
 
 .deleteButtonExposé {
     display: none;
 }
 
+h2.display-2 { /* .display-2 is a Reactstrap class */
+    font-size: calc(1.5px + 2vmin);
+    font-weight: bold;
+}
+
 .approvalsContainer {
-    background-color: lightskyblue;
+    background-color: #ff9933;
+    border: 2px white solid;
     font-size: 12px;
     margin-bottom: 40px;
     font-size: calc(1.5px + 1.2vmin);
+    max-height: 300px;
+    overflow: scroll;
+    padding-top: 1vh;
 }
