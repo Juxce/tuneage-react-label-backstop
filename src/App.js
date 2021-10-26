@@ -2,7 +2,7 @@ import logo from './assets/juxcespinner100.gif';
 import './App.css';
 import { Container, Row, Col } from 'reactstrap';
 import LabelBackstop from './components/LabelBackstop.js';
-import { JuxceSeparator } from './components/JuxceSeperator';
+import { JuxceSeparator } from './components/JuxceSeparator';
 
 function App() {
     return (

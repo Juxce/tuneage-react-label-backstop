@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import isURL from 'validator/lib/isURL';
 import InputForm from './InputForm.js';
-import { JuxceSeparator } from './JuxceSeperator';
+import { JuxceSeparator } from './JuxceSeparator';
 import ApprovalsViewer from './ApprovalsViewer.js';
 import { FormErrors } from './FormErrors.js';
 
