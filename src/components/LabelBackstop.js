@@ -291,6 +291,7 @@ export default class LabelBackstop extends React.Component {
                             profile={this.state.profile}
                             rowKey={this.state.rowKey}
                             formValid={this.state.formValid}
+                            formErrors={this.state.formErrors}
                             addButtonClassName={this.state.addButtonClassName}
                             handleUserInput={this.handleUserInput}
                             create={this.create}

@@ -151,6 +151,10 @@
     display: none;
 }
 
+.field-has-error {
+    background-color: orangered;
+}
+
 h2.display-2 { /* .display-2 is a Reactstrap class */
     font-size: calc(1.5px + 2vmin);
     font-weight: bold;

@@ -2,6 +2,14 @@ import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 
 export default class InputForm extends React.Component {
+
+    // NOW, REFACTOR ALL THE FORM RELATED STUFF HERE (VALIDATION)
+    // AND KEEP THE URL CALLING AND SHIT IN THE BACKSTOP COMPONENT
+
+    errorClass(error) {
+        return(error.length === 0 ? '' : 'field-has-error');
+    }
+    
     render() {
         return (
             <form className="d-flex flex-column">
@@ -15,7 +23,7 @@ export default class InputForm extends React.Component {
                         name="shortName"
                         id="shortName"
                         type="text"
-                        className="formControlSingleValue"
+                        className={`formControlSingleValue ${this.errorClass(this.props.formErrors.shortName)}`}
                         value={this.props.shortName}
                         onChange={(e) => this.props.handleUserInput({ shortName: e.target.value })}
                         required
@@ -28,7 +36,7 @@ export default class InputForm extends React.Component {
                         name="longName"
                         id="longName"
                         type="text"
-                        className="formControlSingleValue"
+                        className={`formControlSingleValue ${this.errorClass(this.props.formErrors.longName)}`}
                         value={this.props.longName}
                         onChange={(e) => this.props.handleUserInput({ longName: e.target.value })}
                         required
@@ -41,7 +49,7 @@ export default class InputForm extends React.Component {
                         name="url"
                         id="url"
                         type="text"
-                        className="formControlSingleValue"
+                        className={`formControlSingleValue ${this.errorClass(this.props.formErrors.url)}`}
                         value={(this.props.url === undefined) ? "" : this.props.url}
                         onChange={(e) => this.props.handleUserInput({ url: e.target.value })}
                         required
@@ -55,7 +63,7 @@ export default class InputForm extends React.Component {
                         id="profile"
                         rows="4"
                         maxLength="10000"
-                        className="formControlMultiLine"
+                        className={`formControlMultiLine ${this.errorClass(this.props.formErrors.profile)}`}
                         value={(this.props.profile === undefined) ? "" : this.props.profile}
                         onChange={(e) => this.props.handleUserInput({ profile: e.target.value })}
                         required
