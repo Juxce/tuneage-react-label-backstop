@@ -93,11 +93,6 @@
     resize: none;
 }
 
-.disabled {
-    background-color: gray;
-    color:rgb(86, 192, 157);
-}
-
 .rowKeyExposé {
     display: none;
 }
@@ -129,6 +124,12 @@
                 border-color .15s ease-in-out,
                 box-shadow .15s ease-in-out;
     -webkit-appearance: button;
+}
+
+.disabled {
+    background-color: gray;
+    color:rgb(86, 192, 157);
+    cursor: not-allowed;
 }
 
 .infoButton {

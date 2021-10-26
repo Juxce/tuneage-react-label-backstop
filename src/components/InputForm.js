@@ -17,7 +17,7 @@ export default class InputForm extends React.Component {
                         type="text"
                         className="formControlSingleValue"
                         value={this.props.shortName}
-                        onChange={(e) => this.props.handleChange({ shortName: e.target.value })}
+                        onChange={(e) => this.props.handleUserInput({ shortName: e.target.value })}
                         required
                     />
                 </label>
@@ -30,7 +30,7 @@ export default class InputForm extends React.Component {
                         type="text"
                         className="formControlSingleValue"
                         value={this.props.longName}
-                        onChange={(e) => this.props.handleChange({ longName: e.target.value })}
+                        onChange={(e) => this.props.handleUserInput({ longName: e.target.value })}
                         required
                     />
                 </label>
@@ -43,7 +43,7 @@ export default class InputForm extends React.Component {
                         type="text"
                         className="formControlSingleValue"
                         value={(this.props.url === undefined) ? "" : this.props.url}
-                        onChange={(e) => this.props.handleChange({ url: e.target.value })}
+                        onChange={(e) => this.props.handleUserInput({ url: e.target.value })}
                         required
                     />
                 </label>
@@ -57,7 +57,7 @@ export default class InputForm extends React.Component {
                         maxLength="10000"
                         className="formControlMultiLine"
                         value={(this.props.profile === undefined) ? "" : this.props.profile}
-                        onChange={(e) => this.props.handleChange({ profile: e.target.value })}
+                        onChange={(e) => this.props.handleUserInput({ profile: e.target.value })}
                         required
                     />
                 </label>
@@ -69,25 +69,35 @@ export default class InputForm extends React.Component {
                         type="text"
                         className="form-control-single-value disabled"
                         value={this.props.rowKey}
-                        onChange={(e) => this.props.handleChange({ rowKey: e.target.value })}
+                        onChange={(e) => this.props.handleUserInput({ rowKey: e.target.value })}
                         readOnly
                     />
                 </label>
-                <Container className="threeButtonRow">
+                <Container className='threeButtonRow'>
                     <Row>
                         <Col className="col-md-4">
-                            <button className="juxceButton infoButton" type='button' onClick={(e) => this.checkForSimilar(e)}>
-                                Check
+                            <button
+                                className={'juxceButton infoButton'}
+                                type='button'
+                                onClick={(e) => this.props.checkForSimilar(e)}>
+                                    Check
                             </button>
                         </Col>
                         <Col className="col-md-4">
-                            <button className="juxceButton addButton" type='button' onClick={(e) => this.create(e)}>
-                                Add
+                            <button
+                                className={this.props.addButtonClassName}
+                                type='button'
+                                disabled={!this.props.formValid}
+                                onClick={(e) => this.props.create(e)}>
+                                    Add
                             </button>
                         </Col>
                         <Col className="col-md-4 deleteButtonExposé">
-                            <button className="juxceButton dangerButton" type='button' onClick={(e) => this.delete(e)}>
-                                Delete
+                            <button
+                                className='juxceButton dangerButton'
+                                type='button'
+                                onClick={(e) => this.props.delete(e)}>
+                                    Delete
                             </button>
                         </Col>
                     </Row>
