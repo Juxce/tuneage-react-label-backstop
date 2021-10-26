@@ -2,12 +2,12 @@ import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 
 export default class InputForm extends React.Component {
-
-    // NOW, REFACTOR ALL THE FORM RELATED STUFF HERE (VALIDATION)
-    // AND KEEP THE URL CALLING AND SHIT IN THE BACKSTOP COMPONENT
-
     errorClass(error) {
-        return(error.length === 0 ? '' : 'field-has-error');
+        return(error.length === 0 ? '' : 'fieldHasError');
+    }
+
+    successClass(message) {
+        return(message.length === 0 ? 'hidden' : 'successMessage');
     }
     
     render() {
@@ -80,8 +80,15 @@ export default class InputForm extends React.Component {
                         onChange={(e) => this.props.handleUserInput({ rowKey: e.target.value })}
                         readOnly
                     />
-                </label>
+                </label>                
                 <Container className='threeButtonRow'>
+                    <Row>
+                        <Col className="col-md-12">
+                            <h2 className={`display-2 ${this.successClass(this.props.successMessage)}`}>
+                                {this.props.successMessage}
+                            </h2>
+                        </Col>
+                    </Row>
                     <Row>
                         <Col className="col-md-4">
                             <button

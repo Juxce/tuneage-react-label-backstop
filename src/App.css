@@ -9,34 +9,45 @@
   line-height: normal;
 }
 
-.App-logo {
+.appLogo {
   height: 10vmin;
   pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 10s linear;
+  .appLogo {
+    animation: app-logo-spin infinite 8s linear;
   }
 }
 
-.App-header {
-  min-height: 100vh;
+.appHeader {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 3vh;
+  margin-bottom: 4vh;
 }
 
-.App-header .display-1 { /* .display-1 is a Reactstrap class */
-    font-family: 'Karantina', cursive;
+.appHeader h1.display-1 { /* .display-1 is a Reactstrap class */
+  font-family: 'Karantina', cursive;
+  font-size: calc(55px + 2.1vmin);
+}
+
+.juxceSeparator {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: calc(1.2px + 1.5vmin);
+    border-top: 1px white solid;
+    border-bottom: 1px white solid;
+    margin: 3% 25% 7% 25%;
 }
 
 .App-link {
   color: #0e69f1;
 }
 
-@keyframes App-logo-spin {
+@keyframes app-logo-spin {
   from {
     transform: rotate(0deg);
   }
@@ -102,6 +113,15 @@
     margin-bottom: 3vh;
 }
 
+.formErrors {
+    border: 2px solid white;
+    border-radius: .6rem;
+    background-color: salmon;
+    margin-bottom: 3vh;
+    padding: .375rem;
+    font-size: calc(5px + 1.2vmin);
+}
+
 .juxceButton {
     width: 100%;
     display: inline-block;
@@ -151,7 +171,7 @@
     display: none;
 }
 
-.field-has-error {
+.fieldHasError {
     background-color: orangered;
 }
 
@@ -160,7 +180,16 @@ h2.display-2 { /* .display-2 is a Reactstrap class */
     font-weight: bold;
 }
 
-.approvalsContainer {
+.successMessage {
+    color: lightgreen;
+    margin-bottom: 3vh;
+}
+
+.hidden {
+    display: none;
+}
+
+.approvalsViewer {
     background-color: #ff9933;
     border: 2px white solid;
     font-size: 12px;
@@ -168,5 +197,5 @@ h2.display-2 { /* .display-2 is a Reactstrap class */
     font-size: calc(1.5px + 1.2vmin);
     max-height: 300px;
     overflow: scroll;
-    padding-top: 1vh;
+    padding: 1vh 1vh 0vh 1vh;
 }

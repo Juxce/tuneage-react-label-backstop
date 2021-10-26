@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import isURL from 'validator/lib/isURL';
 import InputForm from './InputForm.js';
+import { JuxceSeparator } from './JuxceSeperator';
 import ApprovalsViewer from './ApprovalsViewer.js';
 import { FormErrors } from './FormErrors.js';
 
@@ -11,6 +12,7 @@ export default class LabelBackstop extends React.Component {
         this.state = {
             approvals: [],
             approvalsSubheader: 'Here are some approved examples from our database',
+            successMessage: '',
             rowKey: '',
             shortName: '',
             longName: '',
@@ -81,7 +83,7 @@ export default class LabelBackstop extends React.Component {
                 if (longNameValid) {
                     fieldValidationErrors.longName = '';
                 } else {
-                    fieldValidationErrors.longName = 'Your Long Name should at least be as long as your ShortName';
+                    fieldValidationErrors.longName = 'Your full name should at least be as long as your short name';
                 }
                 break;
             case 'url':
@@ -97,7 +99,7 @@ export default class LabelBackstop extends React.Component {
                 if (profileValid) {
                     fieldValidationErrors.profile = '';
                 } else {
-                    fieldValidationErrors.profile = 'Plese enter a profile description of your label'
+                    fieldValidationErrors.profile = 'Please enter a profile description of your label'
                 }
                 break;
             default:
@@ -270,7 +272,7 @@ export default class LabelBackstop extends React.Component {
 
     handleSubmission(shortName) {
         this.setState({
-            approvalsSubheader: "Thank you! Your submission of " + shortName + " has been received!",
+            successMessage: "Thank you! Your submission of " + shortName + " has been received!",
             rowKey: '',
             shortName: '',
             longName: '',
@@ -292,6 +294,7 @@ export default class LabelBackstop extends React.Component {
                             rowKey={this.state.rowKey}
                             formValid={this.state.formValid}
                             formErrors={this.state.formErrors}
+                            successMessage={this.state.successMessage}
                             addButtonClassName={this.state.addButtonClassName}
                             handleUserInput={this.handleUserInput}
                             create={this.create}
@@ -299,7 +302,9 @@ export default class LabelBackstop extends React.Component {
                         />
                         <FormErrors
                             formErrors={this.state.formErrors}
+                            formErrorsArray={Object.values(this.state.formErrors)}
                         />
+                        <JuxceSeparator />
                         <ApprovalsViewer
                             approvals={this.state.approvals}
                             approvalsSubheader={this.state.approvalsSubheader}
