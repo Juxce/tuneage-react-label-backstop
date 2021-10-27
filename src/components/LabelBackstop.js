@@ -1,17 +1,19 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import { BUTTONSTYLES, HEADERS, ERRORS } from './Constants.js';
 import isURL from 'validator/lib/isURL';
 import InputForm from './InputForm.js';
-import { JuxceSeparator } from './JuxceSeparator';
+import JuxceSeparator from './JuxceSeparator.js';
 import ApprovalsViewer from './ApprovalsViewer.js';
-import { FormErrors } from './FormErrors.js';
+import FormErrors from './FormErrors.js';
 
 export default class LabelBackstop extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             approvals: [],
-            approvalsSubheader: 'Here are some approved examples from our database',
+            approvalsSubheader: HEADERS.SomeApprovedExamples,
             successMessage: '',
             rowKey: '',
             shortName: '',
@@ -29,15 +31,13 @@ export default class LabelBackstop extends React.Component {
             urlValid: true,
             profileValid: false,
             formValid: false,
-            addButtonClassName: process.env.REACT_APP_STYLE_ADD_BUTTON_DISABLED
+            addButtonClassName: BUTTONSTYLES.AddButtonDisabled
         };
 
         this.handleUserInput = this.handleUserInput.bind(this);
         this.checkForSimilar = this.checkForSimilar.bind(this);
         this.create = this.create.bind(this);
 
-        this.styleAddButtonActive = process.env.REACT_APP_STYLE_ADD_BUTTON_ACTIVE;
-        this.styleAddButtonDisabled = process.env.REACT_APP_STYLE_ADD_BUTTON_DISABLED;
         this.urlGetLabelApprovals = process.env.REACT_APP_URL_GET_LABEL_APPROVALS;
         this.urlCreate = process.env.REACT_APP_URL_CREATE;
         this.urlUpdate = process.env.REACT_APP_URL_UPDATE_BASE;
@@ -63,7 +63,7 @@ export default class LabelBackstop extends React.Component {
     }
 
     validateField(fieldName, value) {
-        let fieldValidationErrors = this.state.formErrors;
+        let formErrors = this.state.formErrors;
         let shortNameValid = this.state.shortNameValid;
         let longNameValid = this.state.longNameValid;
         let urlValid = this.state.urlValid;
@@ -72,42 +72,26 @@ export default class LabelBackstop extends React.Component {
         switch (fieldName) {
             case 'shortName':
                 shortNameValid = (this.state.shortName.length > 2);
-                if (shortNameValid) {
-                    fieldValidationErrors.shortName = '';
-                } else {
-                    fieldValidationErrors.shortName = 'The short name should be at least 3 characters';
-                }
+                formErrors.shortName = shortNameValid ? '' : ERRORS.ShortNameValidation;
                 break;
             case 'longName':
                 longNameValid = this.state.longName.length >= this.state.shortName.length;
-                if (longNameValid) {
-                    fieldValidationErrors.longName = '';
-                } else {
-                    fieldValidationErrors.longName = 'Your full name should at least be as long as your short name';
-                }
+                formErrors.longName = longNameValid ? '' : ERRORS.LongNameValidation;
                 break;
             case 'url':
                 urlValid = isURL(value) || value.length===0;
-                if (urlValid) {
-                    fieldValidationErrors.url = '';
-                } else {
-                    fieldValidationErrors.url = 'Please enver a valid URL for your website'
-                }
+                formErrors.url = urlValid ? '' : ERRORS.UrlValidation;
                 break;
             case 'profile':
                 profileValid = (this.state.profile.length > 10);
-                if (profileValid) {
-                    fieldValidationErrors.profile = '';
-                } else {
-                    fieldValidationErrors.profile = 'Please enter a profile description of your label'
-                }
+                formErrors.profile = profileValid ? '' : ERRORS.ProfileValidation;
                 break;
             default:
                 break;
         }
         this.setState(
             {
-                formErrors: fieldValidationErrors,
+                formErrors: formErrors,
                 shortNameValid: shortNameValid,
                 longNameValid: longNameValid,
                 urlValid: urlValid,
@@ -133,11 +117,11 @@ export default class LabelBackstop extends React.Component {
     updateButtonStyle() {
         if(this.state.formValid) {
             this.setState({
-                addButtonClassName: this.styleAddButtonActive
+                addButtonClassName: BUTTONSTYLES.AddButtonActive
             })
         } else {
             this.setState({
-                addButtonClassName: this.styleAddButtonDisabled
+                addButtonClassName: BUTTONSTYLES.AddButtonDisabled
             })
         }
     }
@@ -164,7 +148,7 @@ export default class LabelBackstop extends React.Component {
             .then(response => {
                 console.log(response);
                 this.handleSubmission(this.state.shortName);
-                this.setState({addButtonClassName: this.styleAddButtonDisabled});
+                this.setState({addButtonClassName: BUTTONSTYLES.AddButtonDisabled});
             })
             .catch(err => {
                 console.error(err);
@@ -176,7 +160,7 @@ export default class LabelBackstop extends React.Component {
                 url: this.state.url,
                 profile: this.state.profile    
             })
-            this.setState({addButtonClassName: this.styleAddButtonDisabled});
+            this.setState({addButtonClassName: BUTTONSTYLES.AddButtonDisabled});
         }
     }
 
@@ -242,7 +226,7 @@ export default class LabelBackstop extends React.Component {
             .then(response => {
                 if (response.length === 0) {
                     this.setState({
-                        approvalsSubheader: "We don't seem to have that one yet. Fire away!"
+                        approvalsSubheader: HEADERS.NoSimilarResults
                     });
                 }
                 this.setState({
