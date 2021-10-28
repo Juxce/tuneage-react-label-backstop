@@ -294,6 +294,7 @@ export default class LabelBackstop extends React.Component {
                             approvalsSubheader={this.state.approvalsSubheader}
                             handleUserInput={this.handleUserInput}
                         />
+                        <JuxceSeparator />
                     </Col>
                 </Row>
             </Container>
