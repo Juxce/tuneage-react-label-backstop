@@ -56,6 +56,10 @@ export default class LabelBackstop extends React.Component {
         );
     }
 
+    noSpaces(value) {
+        return value.replace(/\s+/g, '');
+    }
+
     validateFields(changeObject) {
         for (var key in changeObject) {
             this.validateField(key, changeObject[key]);
@@ -71,11 +75,12 @@ export default class LabelBackstop extends React.Component {
 
         switch (fieldName) {
             case 'shortName':
-                shortNameValid = (this.state.shortName.length > 2);
+                shortNameValid = (this.noSpaces(this.state.shortName).length > 2);
                 formErrors.shortName = shortNameValid ? '' : ERRORS.ShortNameValidation;
                 break;
             case 'longName':
-                longNameValid = this.state.longName.length >= this.state.shortName.length;
+                longNameValid = (this.noSpaces(this.state.longName).length >= 
+                                 this.noSpaces(this.state.shortName).length);
                 formErrors.longName = longNameValid ? '' : ERRORS.LongNameValidation;
                 break;
             case 'url':
@@ -83,7 +88,7 @@ export default class LabelBackstop extends React.Component {
                 formErrors.url = urlValid ? '' : ERRORS.UrlValidation;
                 break;
             case 'profile':
-                profileValid = (this.state.profile.length > 10);
+                profileValid = (this.noSpaces(this.state.profile).length > 10);
                 formErrors.profile = profileValid ? '' : ERRORS.ProfileValidation;
                 break;
             default:
@@ -138,10 +143,10 @@ export default class LabelBackstop extends React.Component {
                     "accept": "application/json"
                 },
                 "body": JSON.stringify({
-                    shortName: this.state.shortName,
-                    longName: this.state.longName,
+                    shortName: this.state.shortName.trim(),
+                    longName: this.state.longName.trim(),
                     url: this.state.url,
-                    profile: this.state.profile
+                    profile: this.state.profile.trim()
                 })
             })
             .then(() => {
@@ -259,7 +264,12 @@ export default class LabelBackstop extends React.Component {
             shortName: '',
             longName: '',
             url: '',
-            profile: ''
+            profile: '',
+            shortNameValid: false,
+            longNameValid: false,
+            urlValid: true,
+            profileValid: false,
+            formValid: false
         })
     }
 
