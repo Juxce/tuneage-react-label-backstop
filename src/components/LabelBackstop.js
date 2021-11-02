@@ -131,7 +131,7 @@ export default class LabelBackstop extends React.Component {
         e.preventDefault();
 
         if(this.state.formValid) {
-            fetch(this.urlCreate, {
+            fetch("/api/LabelBackstop", {
                 "method": "POST",
                 "headers": {
                     "content-type": "application/json",
@@ -144,9 +144,7 @@ export default class LabelBackstop extends React.Component {
                     profile: this.state.profile
                 })
             })
-            .then(response => response.json())
-            .then(response => {
-                console.log(response);
+            .then(() => {
                 this.handleSubmission(this.state.shortName);
                 this.setState({addButtonClassName: BUTTONSTYLES.AddButtonDisabled});
             })
