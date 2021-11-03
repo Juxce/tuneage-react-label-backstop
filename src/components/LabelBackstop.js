@@ -83,7 +83,7 @@ export default class LabelBackstop extends React.Component {
           this.noSpaces(this.state.shortName).length
         formErrors.longName = longNameValid ? '' : ERRORS.LongNameValidation
         break
-      case 'url:':
+      case 'url':
         urlValid = isURL(value) || value.length === 0
         formErrors.url = urlValid ? '' : ERRORS.UrlValidation
         break

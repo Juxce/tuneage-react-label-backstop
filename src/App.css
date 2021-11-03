@@ -29,18 +29,19 @@
   margin-bottom: 4vh;
 }
 
-.appHeader h1.display-1 { /* .display-1 is a Reactstrap class */
+.appHeader h1.display-1 {
+  /* .display-1 is a Reactstrap class */
   font-family: 'Karantina', cursive;
   font-size: calc(55px + 2.1vmin);
 }
 
 .juxceSeparator {
-    text-align: center;
-    font-family: 'Montserrat', sans-serif;
-    font-size: calc(1.2px + 1.5vmin);
-    border-top: 1px white solid;
-    border-bottom: 1px white solid;
-    margin: 3% 25% 7% 25%;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: calc(1.2px + 1.5vmin);
+  border-top: 1px white solid;
+  border-bottom: 1px white solid;
+  margin: 3% 25% 7% 25%;
 }
 
 .App-link {
@@ -57,8 +58,8 @@
 }
 
 .introParagraph {
-    margin-bottom: 3vh;
-    font-size: calc(2px + 2.5vmin);
+  margin-bottom: 3vh;
+  font-size: calc(2px + 2.5vmin);
 }
 
 .subtext {
@@ -66,136 +67,133 @@
 }
 
 .formControlSingleValue {
-    display: block;
-    width: 100%;
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    color: black;
-    background-color: white;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    -webkit-appearance: none;
-    appearance: none;
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out,
-                box-shadow .15s ease-in-out;
-    margin-top: .25vh;
-    margin-bottom: 1vh;
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  color: black;
+  background-color: white;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  margin-top: 0.25vh;
+  margin-bottom: 1vh;
 }
 
 .formControlMultiLine {
-    display: block;
-    width: 100%;
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.25;
-    color: black;
-    background-color: white;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    -webkit-appearance: none;
-    appearance: none;
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out,
-                box-shadow .15s ease-in-out;
-    margin-top: .25vh;
-    margin-bottom: 2vh;
-    resize: none;
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.25;
+  color: black;
+  background-color: white;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  margin-top: 0.25vh;
+  margin-bottom: 2vh;
+  resize: none;
 }
 
 .rowKeyExposé {
-    display: none;
+  display: none;
 }
 
 .threeButtonRow {
-    margin-top: 1vh;
-    margin-bottom: 3vh;
+  margin-top: 1vh;
+  margin-bottom: 3vh;
 }
 
 .formErrors {
-    border: 2px solid white;
-    border-radius: .6rem;
-    background-color: salmon;
-    margin-bottom: 3vh;
-    padding: .375rem;
-    font-size: calc(5px + 1.2vmin);
+  border: 2px solid white;
+  border-radius: 0.6rem;
+  background-color: salmon;
+  margin-bottom: 3vh;
+  padding: 0.375rem;
+  font-size: calc(5px + 1.2vmin);
 }
 
 .juxceButton {
-    width: 100%;
-    display: inline-block;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    text-align: center;
-    text-decoration: none;
-    vertical-align: middle;
-    cursor: pointer;
-    user-select: none;
-    -webkit-user-select: none;
-    background-color: white;
-    border: 1px solid white;
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    border-radius: .25rem;
-    transition: color .15s ease-in-out,
-                background-color .15s ease-in-out,
-                border-color .15s ease-in-out,
-                box-shadow .15s ease-in-out;
-    -webkit-appearance: button;
+  width: 100%;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  background-color: white;
+  border: 1px solid white;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  -webkit-appearance: button;
 }
 
 .disabled {
-    background-color: gray;
-    color:rgb(86, 192, 157);
-    cursor: not-allowed;
+  background-color: gray;
+  color: rgb(86, 192, 157);
+  cursor: not-allowed;
 }
 
 .infoButton {
-    color: #212529;
-    background-color: lightskyblue;
+  color: #212529;
+  background-color: lightskyblue;
 }
 
 .addButton {
-    color: white;
-    background-color: #0066cc;
+  color: white;
+  background-color: #0066cc;
 }
 
 .dangerButton {
-    color: white;
-    background-color: #ff3333;
+  color: white;
+  background-color: #ff3333;
 }
 
 .deleteButtonExposé {
-    display: none;
+  display: none;
 }
 
 .fieldHasError {
-    background-color: orangered;
+  background-color: orangered;
 }
 
-h2.display-2 { /* .display-2 is a Reactstrap class */
-    font-size: calc(1.5px + 2vmin);
-    font-weight: bold;
+h2.display-2 {
+  /* .display-2 is a Reactstrap class */
+  font-size: calc(1.5px + 2vmin);
+  font-weight: bold;
 }
 
 .successMessage {
-    color: lightgreen;
-    margin-bottom: 3vh;
+  color: lightgreen;
+  margin-bottom: 3vh;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 .approvalsViewer {
-    background-color: #ff9933;
-    border: 2px white solid;
-    font-size: 12px;
-    margin-bottom: 40px;
-    font-size: calc(1.5px + 1.2vmin);
-    max-height: 300px;
-    overflow: scroll;
-    padding: 1vh 1vh 0vh 1vh;
+  background-color: #ff9933;
+  border: 2px white solid;
+  font-size: 12px;
+  margin-bottom: 40px;
+  font-size: calc(1.5px + 1.2vmin);
+  max-height: 300px;
+  overflow: scroll;
+  padding: 1vh 1vh 0vh 1vh;
 }
