@@ -5,7 +5,8 @@ export const BUTTONSTYLES = {
 
 export const HEADERS = {
     SomeApprovedExamples: 'Here are some approved examples from our database',
-    NoSimilarResults: "We don't seem to have that one yet. Fire away!"
+    NoSimilarResults: "We don't seem to have that one yet. Fire away!",
+    SimilarResults: "Some similar approved labels were found in our database"
 }
 
 export const ERRORS = {
