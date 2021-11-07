@@ -23,10 +23,10 @@ export default class ApprovalsViewer extends React.Component {
                       this.props.approvals.map((label) => {
                         return (
                           <tr
-                            key={label.rowKey}
+                            key={label.id}
                             onClick={() =>
-                              this.props.handleChange({
-                                rowKey: label.rowKey,
+                              this.props.handleApprovalClick({
+                                rowKey: label.id,
                                 shortName: label.shortName,
                                 longName: label.longName,
                                 url: label.url,

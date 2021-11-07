@@ -14,6 +14,7 @@ export default class LabelBackstop extends React.Component {
     this.state = {
       approvals: [],
       approvalsSubheader: HEADERS.SomeApprovedExamples,
+      approvalLoadOnClick: false,
       successMessage: '',
       rowKey: '',
       shortName: '',
@@ -34,6 +35,7 @@ export default class LabelBackstop extends React.Component {
       addButtonClassName: BUTTONSTYLES.AddButtonDisabled,
     };
 
+    this.handleApprovalClick = this.handleApprovalClick.bind(this);
     this.handleUserInput = this.handleUserInput.bind(this);
     this.checkForSimilar = this.checkForSimilar.bind(this);
     this.create = this.create.bind(this);
@@ -47,6 +49,17 @@ export default class LabelBackstop extends React.Component {
 
   componentDidMount() {
     this.refreshApprovedList();
+  }
+
+  handleApprovalClick(approval) {
+    if (this.state.approvalLoadOnClick) {
+      this.setState({
+        shortName: approval.shortName,
+        longName: approval.longName,
+        url: approval.url,
+        profile: approval.profile,
+      });
+    }
   }
 
   handleUserInput(changeObject) {
@@ -303,7 +316,7 @@ export default class LabelBackstop extends React.Component {
             <ApprovalsViewer
               approvals={this.state.approvals}
               approvalsSubheader={this.state.approvalsSubheader}
-              handleUserInput={this.handleUserInput}
+              handleApprovalClick={this.handleApprovalClick}
             />
             <JuxceSeparator />
           </Col>
