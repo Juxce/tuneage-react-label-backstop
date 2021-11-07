@@ -1,30 +1,30 @@
-import React from 'react'
-import { Container, Row, Col } from 'reactstrap'
+import React from 'react';
+import { Container, Row, Col } from 'reactstrap';
 
 export default class InputForm extends React.Component {
   errorClass(error) {
-    return error.length === 0 ? '' : 'fieldHasError'
+    return error.length === 0 ? '' : 'fieldHasError';
   }
 
   successClass(message) {
-    return message.length === 0 ? 'hidden' : 'successMessage'
+    return message.length === 0 ? 'hidden' : 'successMessage';
   }
 
   render() {
     return (
-      <form className='d-flex flex-column'>
-        <legend className='introParagraph'>
+      <form className="d-flex flex-column">
+        <legend className="introParagraph">
           Do you have a record label or music company? We would like to know
           about it! Please tell us all about it so we can get you in the mix
           with all the big dogs!
         </legend>
-        <label htmlFor='shortName'>
+        <label htmlFor="shortName">
           Word or phrase that uniquely identifies the company
-          <span className='subtext'>&nbsp;(example: Blue Note)</span>
+          <span className="subtext">&nbsp;(example: Blue Note)</span>
           <input
-            name='shortName'
-            id='shortName'
-            type='text'
+            name="shortName"
+            id="shortName"
+            type="text"
             className={`formControlSingleValue ${this.errorClass(
               this.props.formErrors.shortName
             )}`}
@@ -35,13 +35,13 @@ export default class InputForm extends React.Component {
             required
           />
         </label>
-        <label htmlFor='longName'>
+        <label htmlFor="longName">
           Full label or company name
-          <span className='subtext'>&nbsp;(example: Blue Note Records)</span>
+          <span className="subtext">&nbsp;(example: Blue Note Records)</span>
           <input
-            name='longName'
-            id='longName'
-            type='text'
+            name="longName"
+            id="longName"
+            type="text"
             className={`formControlSingleValue ${this.errorClass(
               this.props.formErrors.longName
             )}`}
@@ -52,13 +52,13 @@ export default class InputForm extends React.Component {
             required
           />
         </label>
-        <label htmlFor='url'>
+        <label htmlFor="url">
           Website
-          <span className='subtext'>&nbsp;(optional)</span>
+          <span className="subtext">&nbsp;(optional)</span>
           <input
-            name='url'
-            id='url'
-            type='text'
+            name="url"
+            id="url"
+            type="text"
             className={`formControlSingleValue ${this.errorClass(
               this.props.formErrors.url
             )}`}
@@ -69,14 +69,14 @@ export default class InputForm extends React.Component {
             required
           />
         </label>
-        <label htmlFor='profile'>
+        <label htmlFor="profile">
           Profile
-          <span className='subtext'>&nbsp;(give us all the details!)</span>
+          <span className="subtext">&nbsp;(give us all the details!)</span>
           <textarea
-            name='profile'
-            id='profile'
-            rows='4'
-            maxLength='10000'
+            name="profile"
+            id="profile"
+            rows="4"
+            maxLength="10000"
             className={`formControlMultiLine ${this.errorClass(
               this.props.formErrors.profile
             )}`}
@@ -87,13 +87,13 @@ export default class InputForm extends React.Component {
             required
           />
         </label>
-        <label htmlFor='rowKey' className='rowKeyExposé'>
+        <label htmlFor="rowKey" className="rowKeyExposé">
           Row Key:
           <input
-            name='rowKey'
-            id='rowKey'
-            type='text'
-            className='form-control-single-value disabled'
+            name="rowKey"
+            id="rowKey"
+            type="text"
+            className="form-control-single-value disabled"
             value={this.props.rowKey}
             onChange={(e) =>
               this.props.handleUserInput({ rowKey: e.target.value })
@@ -101,9 +101,9 @@ export default class InputForm extends React.Component {
             readOnly
           />
         </label>
-        <Container className='threeButtonRow'>
+        <Container className="threeButtonRow">
           <Row>
-            <Col className='col-md-12'>
+            <Col className="col-md-12">
               <h2
                 className={`display-2 ${this.successClass(
                   this.props.successMessage
@@ -114,29 +114,29 @@ export default class InputForm extends React.Component {
             </Col>
           </Row>
           <Row>
-            <Col className='col-md-4'>
+            <Col className="col-md-4">
               <button
                 className={'juxceButton infoButton'}
-                type='button'
+                type="button"
                 onClick={(e) => this.props.checkForSimilar(e)}
               >
                 Check
               </button>
             </Col>
-            <Col className='col-md-4'>
+            <Col className="col-md-4">
               <button
                 className={this.props.addButtonClassName}
-                type='button'
+                type="button"
                 disabled={!this.props.formValid}
                 onClick={(e) => this.props.create(e)}
               >
                 Add
               </button>
             </Col>
-            <Col className='col-md-4 deleteButtonExposé'>
+            <Col className="col-md-4 deleteButtonExposé">
               <button
-                className='juxceButton dangerButton'
-                type='button'
+                className="juxceButton dangerButton"
+                type="button"
                 onClick={(e) => this.props.delete(e)}
               >
                 Delete
@@ -145,6 +145,6 @@ export default class InputForm extends React.Component {
           </Row>
         </Container>
       </form>
-    )
+    );
   }
 }

@@ -1,15 +1,15 @@
-import React from 'react'
-import { Container, Row, Col } from 'reactstrap'
-import { BUTTONSTYLES, HEADERS, ERRORS } from './Constants.js'
-import isURL from 'validator/lib/isURL'
-import InputForm from './InputForm.js'
-import JuxceSeparator from './JuxceSeparator.js'
-import ApprovalsViewer from './ApprovalsViewer.js'
-import FormErrors from './FormErrors.js'
+import React from 'react';
+import { Container, Row, Col } from 'reactstrap';
+import { BUTTONSTYLES, HEADERS, ERRORS } from './Constants.js';
+import isURL from 'validator/lib/isURL';
+import InputForm from './InputForm.js';
+import JuxceSeparator from './JuxceSeparator.js';
+import ApprovalsViewer from './ApprovalsViewer.js';
+import FormErrors from './FormErrors.js';
 
 export default class LabelBackstop extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       approvals: [],
@@ -32,67 +32,67 @@ export default class LabelBackstop extends React.Component {
       profileValid: false,
       formValid: false,
       addButtonClassName: BUTTONSTYLES.AddButtonDisabled,
-    }
+    };
 
-    this.handleUserInput = this.handleUserInput.bind(this)
-    this.checkForSimilar = this.checkForSimilar.bind(this)
-    this.create = this.create.bind(this)
+    this.handleUserInput = this.handleUserInput.bind(this);
+    this.checkForSimilar = this.checkForSimilar.bind(this);
+    this.create = this.create.bind(this);
 
-    this.urlGetLabelApprovals = process.env.REACT_APP_URL_GET_LABEL_APPROVALS
-    this.urlCreate = process.env.REACT_APP_URL_CREATE
-    this.urlUpdate = process.env.REACT_APP_URL_UPDATE_BASE
-    this.urlDelete = process.env.REACT_APP_URL_DELETE_BASE
-    this.urlCheckSimilar = process.env.REACT_APP_URL_CHECK_SIMILAR
+    this.urlGetLabelApprovals = process.env.REACT_APP_URL_GET_LABEL_APPROVALS;
+    this.urlCreate = process.env.REACT_APP_URL_CREATE;
+    this.urlUpdate = process.env.REACT_APP_URL_UPDATE_BASE;
+    this.urlDelete = process.env.REACT_APP_URL_DELETE_BASE;
+    this.urlCheckSimilar = process.env.REACT_APP_URL_CHECK_SIMILAR;
   }
 
   componentDidMount() {
-    this.refreshApprovedList()
+    this.refreshApprovedList();
   }
 
   handleUserInput(changeObject) {
     this.setState(changeObject, () => {
-      this.validateFields(changeObject)
-    })
+      this.validateFields(changeObject);
+    });
   }
 
   noSpaces(value) {
-    return value.replace(/\s+/g, '')
+    return value.replace(/\s+/g, '');
   }
 
   validateFields(changeObject) {
     for (var key in changeObject) {
-      this.validateField(key, changeObject[key])
+      this.validateField(key, changeObject[key]);
     }
   }
 
   validateField(fieldName, value) {
-    let formErrors = this.state.formErrors
-    let shortNameValid = this.state.shortNameValid
-    let longNameValid = this.state.longNameValid
-    let urlValid = this.state.urlValid
-    let profileValid = this.state.profileValid
+    let formErrors = this.state.formErrors;
+    let shortNameValid = this.state.shortNameValid;
+    let longNameValid = this.state.longNameValid;
+    let urlValid = this.state.urlValid;
+    let profileValid = this.state.profileValid;
 
     switch (fieldName) {
       case 'shortName':
-        shortNameValid = this.noSpaces(this.state.shortName).length > 2
-        formErrors.shortName = shortNameValid ? '' : ERRORS.ShortNameValidation
-        break
+        shortNameValid = this.noSpaces(this.state.shortName).length > 2;
+        formErrors.shortName = shortNameValid ? '' : ERRORS.ShortNameValidation;
+        break;
       case 'longName':
         longNameValid =
           this.noSpaces(this.state.longName).length >=
-          this.noSpaces(this.state.shortName).length
-        formErrors.longName = longNameValid ? '' : ERRORS.LongNameValidation
-        break
+          this.noSpaces(this.state.shortName).length;
+        formErrors.longName = longNameValid ? '' : ERRORS.LongNameValidation;
+        break;
       case 'url':
-        urlValid = isURL(value) || value.length === 0
-        formErrors.url = urlValid ? '' : ERRORS.UrlValidation
-        break
+        urlValid = isURL(value) || value.length === 0;
+        formErrors.url = urlValid ? '' : ERRORS.UrlValidation;
+        break;
       case 'profile':
-        profileValid = this.noSpaces(this.state.profile).length > 10
-        formErrors.profile = profileValid ? '' : ERRORS.ProfileValidation
-        break
+        profileValid = this.noSpaces(this.state.profile).length > 10;
+        formErrors.profile = profileValid ? '' : ERRORS.ProfileValidation;
+        break;
       default:
-        break
+        break;
     }
     this.setState(
       {
@@ -103,7 +103,7 @@ export default class LabelBackstop extends React.Component {
         profileValid: profileValid,
       },
       () => this.validateForm()
-    )
+    );
   }
 
   validateForm() {
@@ -116,24 +116,24 @@ export default class LabelBackstop extends React.Component {
           this.state.profileValid,
       },
       () => this.updateButtonStyle()
-    )
+    );
   }
 
   updateButtonStyle() {
     if (this.state.formValid) {
       this.setState({
         addButtonClassName: BUTTONSTYLES.AddButtonActive,
-      })
+      });
     } else {
       this.setState({
         addButtonClassName: BUTTONSTYLES.AddButtonDisabled,
-      })
+      });
     }
   }
 
   create(e) {
     // add entity - POST
-    e.preventDefault()
+    e.preventDefault();
 
     if (this.state.formValid) {
       fetch('/api/LabelBackstop', {
@@ -150,26 +150,26 @@ export default class LabelBackstop extends React.Component {
         }),
       })
         .then(() => {
-          this.handleSubmission(this.state.shortName)
-          this.setState({ addButtonClassName: BUTTONSTYLES.AddButtonDisabled })
+          this.handleSubmission(this.state.shortName);
+          this.setState({ addButtonClassName: BUTTONSTYLES.AddButtonDisabled });
         })
         .catch((err) => {
-          console.error(err)
-        })
+          console.error(err);
+        });
     } else {
       this.validateFields({
         shortName: this.state.shortName,
         longName: this.state.longName,
         url: this.state.url,
         profile: this.state.profile,
-      })
-      this.setState({ addButtonClassName: BUTTONSTYLES.AddButtonDisabled })
+      });
+      this.setState({ addButtonClassName: BUTTONSTYLES.AddButtonDisabled });
     }
   }
 
   update(e) {
     // update entity - PUT
-    e.preventDefault()
+    e.preventDefault();
 
     fetch('/api/ThereIsNoUpdateFunctionalityInThisAppCurrently', {
       method: 'PUT',
@@ -190,13 +190,13 @@ export default class LabelBackstop extends React.Component {
         // Do something to the app based on a successful update
       })
       .catch((err) => {
-        console.error(err)
-      })
+        console.error(err);
+      });
   }
 
   delete(e) {
     // delete entity - DELETE
-    e.preventDefault()
+    e.preventDefault();
 
     fetch('/api/ThereIsNoDeleteFunctionalityInThisAppCurrently', {
       method: 'DELETE',
@@ -206,13 +206,13 @@ export default class LabelBackstop extends React.Component {
         // Do something to the app based on a successful deletion
       })
       .catch((err) => {
-        console.error(err)
-      })
+        console.error(err);
+      });
   }
 
   checkForSimilar(e) {
     // query for approved labels that begin with same shortName text - POST
-    e.preventDefault()
+    e.preventDefault();
 
     fetch('/api/LabelApprovals_SimilarityCheck', {
       method: 'POST',
@@ -228,19 +228,19 @@ export default class LabelBackstop extends React.Component {
         if (response.length === 0) {
           this.setState({
             approvalsSubheader: HEADERS.NoSimilarResults,
-          })
+          });
         } else {
           this.setState({
             approvalsSubheader: HEADERS.SimilarResults,
-          })
+          });
         }
         this.setState({
           approvals: response,
-        })
+        });
       })
       .catch((err) => {
-        console.error(err)
-      })
+        console.error(err);
+      });
   }
 
   refreshApprovedList() {
@@ -252,11 +252,11 @@ export default class LabelBackstop extends React.Component {
       .then((response) => {
         this.setState({
           approvals: response.approvals,
-        })
+        });
       })
       .catch((err) => {
-        console.error(err)
-      })
+        console.error(err);
+      });
   }
 
   handleSubmission(shortName) {
@@ -273,14 +273,14 @@ export default class LabelBackstop extends React.Component {
       urlValid: true,
       profileValid: false,
       formValid: false,
-    })
+    });
   }
 
   render() {
     return (
       <Container>
-        <Row className='justify-content-center'>
-          <Col className='col-md-6'>
+        <Row className="justify-content-center">
+          <Col className="col-md-6">
             <InputForm
               shortName={this.state.shortName}
               longName={this.state.longName}
@@ -309,6 +309,6 @@ export default class LabelBackstop extends React.Component {
           </Col>
         </Row>
       </Container>
-    )
+    );
   }
 }

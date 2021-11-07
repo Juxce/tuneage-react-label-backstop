@@ -1,16 +1,16 @@
-import React from 'react'
-import { Container, Row, Col } from 'reactstrap'
+import React from 'react';
+import { Container, Row, Col } from 'reactstrap';
 
 export default class ApprovalsViewer extends React.Component {
   render() {
     return (
-      <div className='approvalsViewer'>
-        <h2 className='display-2'>{this.props.approvalsSubheader}</h2>
+      <div className="approvalsViewer">
+        <h2 className="display-2">{this.props.approvalsSubheader}</h2>
         <div>
           <Container>
             <Row>
               <Col>
-                <table className='table table-striped table-bordered'>
+                <table className="table table-striped table-bordered">
                   <thead>
                     <tr>
                       <th>Short Name</th>
@@ -42,7 +42,7 @@ export default class ApprovalsViewer extends React.Component {
                                 : label.profile.substring(0, 30)}
                             </td>
                           </tr>
-                        )
+                        );
                       })}
                   </tbody>
                 </table>
@@ -51,6 +51,6 @@ export default class ApprovalsViewer extends React.Component {
           </Container>
         </div>
       </div>
-    )
+    );
   }
 }
