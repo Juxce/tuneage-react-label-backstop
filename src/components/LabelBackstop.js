@@ -39,12 +39,6 @@ export default class LabelBackstop extends React.Component {
     this.handleUserInput = this.handleUserInput.bind(this);
     this.checkForSimilar = this.checkForSimilar.bind(this);
     this.create = this.create.bind(this);
-
-    this.urlGetLabelApprovals = process.env.REACT_APP_URL_GET_LABEL_APPROVALS;
-    this.urlCreate = process.env.REACT_APP_URL_CREATE;
-    this.urlUpdate = process.env.REACT_APP_URL_UPDATE_BASE;
-    this.urlDelete = process.env.REACT_APP_URL_DELETE_BASE;
-    this.urlCheckSimilar = process.env.REACT_APP_URL_CHECK_SIMILAR;
   }
 
   componentDidMount() {

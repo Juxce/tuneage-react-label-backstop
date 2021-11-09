@@ -1,0 +1,14 @@
+{
+  "routes": [
+    {
+      "route": "/api/LabelBackstop",
+      "methods": ["POST"],
+      "redirect": "https://juxcetuneage.azurewebsites.net/api/LabelBackstop?"
+    },
+    {
+      "route": "/api/LabelApprovals_SimilarityCheck",
+      "methods": ["POST"],
+      "redirect": "https://juxcetuneage.azurewebsites.net/api/LabelApprovals_SimilarityCheck?"
+    }
+  ]
+}
