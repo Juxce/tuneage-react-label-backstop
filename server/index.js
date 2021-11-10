@@ -32,7 +32,7 @@ app.get(
       .then((proxyResponse) => proxyResponse.json())
       .then((proxyResponse) => {
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify({ approvals: proxyResponse }));
+        res.send(JSON.stringify(proxyResponse));
       })
       .catch((err) => {
         console.error(err);

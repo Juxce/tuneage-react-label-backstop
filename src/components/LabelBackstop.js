@@ -254,11 +254,14 @@ export default class LabelBackstop extends React.Component {
     // get all entities - GET
     fetch('/api/LabelApprovals_GetAllDocuments', {
       method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+      },
     })
       .then((response) => response.json())
       .then((response) => {
         this.setState({
-          approvals: response.approvals,
+          approvals: response,
         });
       })
       .catch((err) => {
