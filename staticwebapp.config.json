@@ -1,4 +1,8 @@
 {
-  "routes": "/api/*",
-  "allowedRoles": ["authenticated"]
+  "routes": [
+    {
+      "route": "/api/*",
+      "allowedRoles": ["anonymous"]
+    }
+  ]
 }
