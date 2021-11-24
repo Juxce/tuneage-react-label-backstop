@@ -2,6 +2,7 @@ import logo from './assets/juxcespinner100.gif';
 import './App.css';
 import { Container, Row, Col } from 'reactstrap';
 import { NavBar, LabelBackstop, JuxceSeparator } from './components';
+import GetTokenBruh from './components/test-auth-call';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           </Col>
         </Row>
       </Container>
+      <GetTokenBruh />
       <LabelBackstop />
     </div>
   );

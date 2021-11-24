@@ -267,6 +267,11 @@ export default class LabelBackstop extends React.Component {
       .catch((err) => {
         console.error(err);
       });
+
+    // const { data } = useFetchGet('/api/LabelApprovals_GetAllDocuments');
+    // this.setState({
+    //   approvals: data,
+    // });
   }
 
   handleSubmission(shortName) {
