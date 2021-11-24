@@ -34,6 +34,7 @@ jobs:
         env: # Add environment variables here
           REACT_APP_AUTH0_DOMAIN: dev-w5a0p79s.us.auth0.com
           REACT_APP_AUTH0_CLIENT_ID: zz6DkEAjnddHOWDOQqRXKfMYEj9JP2Qi
+          REACT_APP_AUTH0_AUDIENCE: https://juxce-label-backstop-api
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
