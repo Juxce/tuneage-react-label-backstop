@@ -8,7 +8,7 @@ export const useFetchGet = (url) => {
   useEffect(() => {
     const fetchData = async () => {
       const token = await getAccessTokenSilently();
-      const response = await fetch(url, {
+      await fetch(url, {
         method: 'GET',
         headers: {
           'content-type': 'application/json',

@@ -8,7 +8,7 @@ const GetTokenBruh = () => {
     try {
       const token = await getAccessTokenSilently();
 
-      const response = await fetch('/api/LabelApprovals_GetAllDocuments', {
+      await fetch('/api/LabelApprovals_GetAllDocuments', {
         method: 'GET',
         headers: {
           'content-type': 'application/json',
