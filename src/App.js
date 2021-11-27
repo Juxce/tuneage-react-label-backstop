@@ -2,7 +2,10 @@ import logo from './assets/juxcespinner100.gif';
 import './App.css';
 import { Container, Row, Col } from 'reactstrap';
 import { NavBar, LabelBackstop, JuxceSeparator } from './components';
+import { Home, Profile, ExternalApi } from './views';
 import GetTokenBruh from './components/test-auth-call';
+import { Route, Switch } from 'react-router-dom';
+import ProtectedRoute from './auth/protected-route';
 
 function App() {
   return (
@@ -22,8 +25,17 @@ function App() {
           </Col>
         </Row>
       </Container>
+      <div className="container flex-grow-1">
+        <div className="mt-5">
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <ProtectedRoute path="/profile" component={Profile} />
+            <ProtectedRoute path="/external-api" component={ExternalApi} />
+          </Switch>
+        </div>
+      </div>
       <GetTokenBruh />
-      <LabelBackstop />
+      {/* <LabelBackstop /> */}
     </div>
   );
 }

@@ -37,7 +37,7 @@ const GetTokenBruh = () => {
       >
         Call dat thang
       </button>
-      <h1>{thang}</h1>;
+      <h1>{thang}</h1>
     </div>
   );
 };
