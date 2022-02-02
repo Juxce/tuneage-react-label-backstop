@@ -3,7 +3,7 @@ import './App.css';
 import { Container, Row, Col } from 'reactstrap';
 import { NavBar, LabelBackstop, JuxceSeparator } from './components';
 import { Home, Profile, ExternalApi } from './views';
-import GetTokenBruh from './components/test-auth-call';
+import TestAuthCallGah from './components/test-auth-call';
 import { Route, Switch } from 'react-router-dom';
 import ProtectedRoute from './auth/protected-route';
 
@@ -34,7 +34,7 @@ function App() {
           </Switch>
         </div>
       </div>
-      <GetTokenBruh />
+      <TestAuthCallGah />
       {/* <LabelBackstop /> */}
     </div>
   );

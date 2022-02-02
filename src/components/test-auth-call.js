@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
-const GetTokenBruh = () => {
+const TestAuthCallGah = () => {
   const [thang, setThang] = useState('');
   const { getAccessTokenSilently } = useAuth0();
-  const callTheApiBroo = async () => {
+  const callTheApiNowMang = async () => {
     try {
       const token = await getAccessTokenSilently();
 
@@ -29,17 +29,17 @@ const GetTokenBruh = () => {
 
   return (
     <div>
-      <p>Son...</p>
+      <p>TestAuthCall why don't you? Step right up.</p>
       <button
         type="button"
         className="btn btn-primary"
-        onClick={callTheApiBroo}
+        onClick={callTheApiNowMang}
       >
-        Call dat thang
+        Test dat Auth call, mang
       </button>
       <h1>{thang}</h1>
     </div>
   );
 };
 
-export default GetTokenBruh;
+export default TestAuthCallGah;

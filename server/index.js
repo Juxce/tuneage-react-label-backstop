@@ -10,6 +10,7 @@ const PORT = 3001;
 const app = express();
 
 const secretThingy = process.env.SECRET_THINGY;
+const devDomain = process.env.DEV_DOMAIN;
 
 app.use(pino);
 app.use(express.json());
@@ -26,8 +27,12 @@ app.get(
   '/api/LabelApprovals_GetAllDocuments',
   cors(corsOptions),
   (req, res) => {
-    fetch('http://localhost:7071/api/LabelApprovals_GetAllDocuments', {
+    fetch(devDomain + 'api/LabelApprovals_GetAllDocuments', {
       method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: req.get('Authorization'),
+      },
     })
       .then((proxyResponse) => proxyResponse.json())
       .then((proxyResponse) => {
@@ -41,7 +46,7 @@ app.get(
 );
 
 app.post('/api/LabelBackstop', cors(corsOptions), (req, res) => {
-  fetch('http://localhost:7071/api/LabelBackstop', {
+  fetch(devDomain + 'api/LabelBackstop', {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
@@ -62,7 +67,7 @@ app.post(
   '/api/LabelApprovals_SimilarityCheck',
   cors(corsOptions),
   (req, res) => {
-    fetch('http://localhost:7071/api/LabelApprovals_SimilarityCheck', {
+    fetch(devDomain + 'api/LabelApprovals_SimilarityCheck', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
