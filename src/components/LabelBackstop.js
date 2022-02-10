@@ -6,8 +6,9 @@ import InputForm from './InputForm.js';
 import JuxceSeparator from './JuxceSeparator.js';
 import ApprovalsViewer from './ApprovalsViewer.js';
 import FormErrors from './FormErrors.js';
+import { withAuth0 } from '@auth0/auth0-react';
 
-export default class LabelBackstop extends React.Component {
+class LabelBackstop extends React.Component {
   constructor(props) {
     super(props);
 
@@ -33,6 +34,7 @@ export default class LabelBackstop extends React.Component {
       profileValid: false,
       formValid: false,
       addButtonClassName: BUTTONSTYLES.AddButtonDisabled,
+      token: '',
     };
 
     this.handleApprovalClick = this.handleApprovalClick.bind(this);
@@ -42,6 +44,9 @@ export default class LabelBackstop extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({
+      token: BUTTONSTYLES.AddButtonActive,
+    });
     this.refreshApprovedList();
   }
 
@@ -252,22 +257,28 @@ export default class LabelBackstop extends React.Component {
 
   refreshApprovedList() {
     // get all entities - GET
-    fetch('/api/LabelApprovals_GetAllDocuments', {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        this.setState({
-          approvals: response,
-        });
+    const { getAccessTokenSilently } = this.props.auth0;
+    getAccessTokenSilently().then((token) =>
+      fetch('/api/LabelApprovals_GetAllDocuments', {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .catch((err) => {
-        console.error(err);
-      });
+        .then((response) => response.json())
+        .then((response) => {
+          this.setState({
+            approvals: response,
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+    );
 
+    // WOULD LIKE TO BE ABLE TO DO THE FOLLOWING...BUT CAN'T SINCE THIS IS A
+    // CLASS COMPONENT. THIS DRIVES REFACTORING INTO A FUNCTION COMPONENT.
     // const { data } = useFetchGet('/api/LabelApprovals_GetAllDocuments');
     // this.setState({
     //   approvals: data,
@@ -292,6 +303,7 @@ export default class LabelBackstop extends React.Component {
   }
 
   render() {
+    const { user } = this.props.auth0;
     return (
       <Container>
         <Row className="justify-content-center">
@@ -327,3 +339,5 @@ export default class LabelBackstop extends React.Component {
     );
   }
 }
+
+export default withAuth0(LabelBackstop);

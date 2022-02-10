@@ -1,8 +1,8 @@
 import logo from './assets/juxcespinner100.gif';
 import './App.css';
 import { Container, Row, Col } from 'reactstrap';
-import { NavBar, LabelBackstop, JuxceSeparator } from './components';
-import { Home, Profile, ExternalApi } from './views';
+import { NavBar, JuxceSeparator } from './components';
+import { Home, Profile, Labels } from './views';
 import TestAuthCallGah from './components/test-auth-call';
 import { Route, Switch } from 'react-router-dom';
 import ProtectedRoute from './auth/protected-route';
@@ -29,13 +29,12 @@ function App() {
         <div className="mt-5">
           <Switch>
             <Route path="/" exact component={Home} />
+            <ProtectedRoute path="/labels" component={Labels} />
             <ProtectedRoute path="/profile" component={Profile} />
-            <ProtectedRoute path="/external-api" component={ExternalApi} />
           </Switch>
         </div>
       </div>
-      <TestAuthCallGah />
-      {/* <LabelBackstop /> */}
+      {/* <TestAuthCallGah /> */}
     </div>
   );
 }
